@@ -17,7 +17,7 @@ let myCalender = new Promise(function(resolve,reject){
             resolve(z);
         }
         else{
-            reject('invalid day');
+            reject('invalid day or salary..');
             isOkay = false;
         }
     })
