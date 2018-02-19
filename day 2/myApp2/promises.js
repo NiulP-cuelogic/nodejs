@@ -1,32 +1,40 @@
 var prompt = require('prompt');
 prompt.start();
-let myCalender = new Promise(function(resolve,reject){
+let myCalendar = new Promise(function(resolve,reject){
 
     prompt.get(['salary','day'],function(err,result){
-        var x = result.day;
+        var x = result.day; 
         if(x>=1 && x<=5){
             var z = result.salary/(35-x-30);
-            // console.log(z);
-            isOkay = true;
+           
+            
             resolve(z);
         }
         else if(x>5 && x<=30){
-            var z = result.salary/35-x;
-            // console.log(z);
-            isOkay = true;
+            var z = result.salary/(35-x);
+          
+            
             resolve(z);
         }
         else{
+<<<<<<< HEAD
             reject('invalid day or salary..');
             isOkay = false;
+=======
+            reject('invalid day');
+            
+>>>>>>> 2c9925773ea8ef21eabed1e12818d915661e3ff2
         }
     })
     
 })
 
 
-myCalender.then(function(fromResolve){
-    console.log('the answer is ' + fromResolve);
+myCalendar.then(function(fromResolve){
+
+     console.log('the answer is ' + fromResolve.toFixed(2));
 }).catch(function(fromReject){
-    console.log('invalid day ..');
+    console.log(fromReject + ' is an invalid day ..');
 })
+
+// you get z from the fromResolve argument 

@@ -30,6 +30,6 @@ var fs =  require('fs');
         })
   }
   else {
-      console.log("invalid day fucker...");
+      console.log("invalid day ...");
   }
   });

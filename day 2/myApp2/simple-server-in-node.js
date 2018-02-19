@@ -1,24 +1,22 @@
 var http = require('http');
-var host = '127.0.0.2   ';
-var port = 2000;
+var url = require('url');
 
-var server = http.createServer((req,res)=>{
-    res.writeHead(200,{"Content-type":"text/plain"});
-    console.log("server started");
-    res.write("successfullly started server .. hehe..");
-    
-    res.end('yes');
-           
-}); 
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  var q = url.parse(req.url, true).query;
+  var txt = q.year + " " + q.month;
+  res.end(txt);
+}).listen(8080);    
 
 
-server.listen(port,host,(err)=> {
-    if(err)
-    {
-        throw err;
-        return console.log("error occured..");
-    }
-    else{
-        console.log("server listening at " + host + ":" + port);
-    }
-});
+
+const url = require('url');
+const myUrl = url.parse('http://localhost:8080/nacktschnecke');
+
+var niul = http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    console.log(myUrl.host);
+    console.log('server started..')
+    res.end(myUrl.pathname);
+  }).listen(8080);      
+
