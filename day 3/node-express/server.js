@@ -1,14 +1,20 @@
 var express = require('express');
 var app = express();
+var http = require('http');
+var path = require('path');
+var port  = 3000;
+var mongo  = require('mongodb');
 
-require("./router/main")(app);
-app.set("views",__dirname+"/views");
-app.set('view engine',"ejs");
-app.engine('html',require('ejs').renderFile);
+app.get("/",function(req,res){
+    res.sendFile(path.join(__dirname+"/views/index.html"));
+})
 
-var server = app.listen(3000,function(){
-    console.log("express is running on port 3000...");
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('server running at http://%s:   %s',host,port);
-});     
+app.get("/about.html",function(req,res){
+    res.sendFile(path.join(__dirname+"/views/about.html"));
+})
+
+app.listen(3000);
+
+console.log("server running at port " + port);
+
+module.exports = app;
