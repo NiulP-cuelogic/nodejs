@@ -23,11 +23,26 @@ User.find({},function(err,result){
     console.log("found users .."+result);
 });
 
-User.remove({name:"niul"},function(err,result){
-    if(err) throw err;
-     console.log("okay  "+ result);
-    
-})
+// var promise1 = new Promise(function(reject,resolve){
+//     user1.save(function(err,result){
+//         if(err) reject(err);
+//         resolve(result);
+//     });
+// });
 
+// var promise2 = new Promise(function(reject,resolve){
+//     User.find({},function(err,result){
+//         if(err)reject(err);
+//         resolve(result);
+//     });
+// });
+
+// promise1.then(function(fromResolve){
+//     return promise2(fromResolve);
+// }).then(function(fromResolve){
+//     console.log(fromResolve);
+// }).catch(function(fromReject){
+//     console.log(fromReject);
+// })
 
 app.listen(3000);
