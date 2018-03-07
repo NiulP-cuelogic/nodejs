@@ -48,7 +48,8 @@ app.post("/details",function(req,res){
         else if(!user){
             res.send("user not found..");
         }
-        res.send(user);
+        res.sendFile(path.join(__dirname+'/public/details.html'));
+        res.send(user); 
     })
 });
 
