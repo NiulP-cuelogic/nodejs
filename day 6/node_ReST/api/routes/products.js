@@ -69,11 +69,25 @@ router.get("/:productId",(req,res,next)=>{
 
 
 router.patch("/:productId",(req,res,next)=>{
-    var updatedProduct =  req.params.productId;
-    res.status(200).json({  
-        message:"Updated product...",
-        updatedProduct:updatedProduct
+    var id = req.params.productId;
+    var updateOps = {};
+    for(var ops of req.body){
+        updateOps[ops.propName] = ops.value;
+    }
+    Product.update({_id:id},{$set:updateOps})
+    .exec()
+    .then(result=>{
+        console.log(result);
+        res.status(200).json(result);
     })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error:err
+        });
+    });
+    // var updateOps = {};
+    
 })
 
 router.delete("/:productId",(req,res,next)=>{
