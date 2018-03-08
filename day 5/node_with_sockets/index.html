@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #chat{
+            height:500px;
+        }
+    
+    </style>
+</head>
+<body>
+    <!-- <p> hello world!!!</p> -->
+    <div id="chat"></div>
+    <form action="" id="send-messages">
+        <input type="text" id="message"></input>
+        <input type="submit"></input>
+    </form>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        jQuery(function($){
+            var socket = io.connect();
+            var $messageForm = $('#send-messages');
+            var $messageBox = $('#message');
+            var $chat = $('#chat');
+
+            $messageForm.submit(function(e){
+                e.preventDefault();
+                socket.emit('send message',$messageBox.val());
+                messageBox.val('');
+            });
+
+            socket.on('new message',function(data){
+                $chat.append(data+'<br/>');
+            })
+        })
+
+    </script>
+</body>
+</html>

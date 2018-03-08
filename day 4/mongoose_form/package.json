@@ -1,0 +1,19 @@
+{
+  "name": "mongoose_form",
+  "version": "1.0.0",
+  "description": "storing form data with mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "niul",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jade": "^1.11.0",
+    "mongodb": "^3.0.3",
+    "mongoose": "^5.0.7",
+    "path": "^0.12.7"
+  }
+}

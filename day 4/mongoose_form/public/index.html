@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/post-details">
+        <label>Name: <input type="text" name="username" required> </label>
+        <br>
+        <label>Email: <input type="text" name="useremail" required> </label>
+        <br>
+        <label>Comment: <br> <textarea name="comment"></textarea> </label>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <a href="/view-details">View all user details</a>
+    <a href="/update-details"> Update details</a>
+    <a href="/search-details"> Search </a>
+</body>
+</html>
