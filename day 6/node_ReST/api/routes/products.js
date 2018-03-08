@@ -1,21 +1,37 @@
 var express = require('express');
-
+// var myError = new Boom("Not found ...");
 var router = express.Router();
 var mongoose= require("mongoose");
 var Product = require('../models/product');
 
 router.get("/",(req,res,next)=>{
         Product.find()
+        .select('name price _id')
         .exec()
         .then(docs=>{
-            console.log(docs);
-            res.status(200).json(docs);
+            // console.log(docs);
+            var response = {
+                count:docs.length,
+                products:docs.map(doc =>{
+                    return {
+                        name:doc.name,
+                        price:doc.price,
+                        _id:doc._id,
+                        request:{
+                            type:"GET",
+                            url:"http://localhost:3000/products/" +doc._id
+                        }
+                    }
+                })
+            };
+            res.status(200).json(response);
         })
         .catch(err=>{
             console.log(err);
             res.status(500).json({
-                error:err
+                error:err   
             })
+            // Boom.boomify(myError,{statusCode:400});
         })
 })
 
@@ -32,8 +48,16 @@ router.post("/",(req,res,next)=>{
     .then(result=>{
         console.log(result);
         res.status(200).json({
-            message:"handling POST requests to /products...",
-            createdProduct:result
+            message:"Created the product..",
+            createdProduct:{
+                name:result.name,
+                price:result.price,
+                id:result._id,
+                request:{
+                    type:"POST",
+                    url:"http://localhost/products/"+ result._id
+                }
+            }
         }); 
     })
     .catch(err=>{

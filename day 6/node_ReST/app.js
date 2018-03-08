@@ -5,7 +5,7 @@ var productRoutes = require('./api/routes/products');
 var orderRoutes = require('./api/routes/orders');
 var bodyParser= require("body-parser"); 
 var mongoose = require('mongoose');
-
+var Boom = require('boom');
 var db = 'mongodb://localhost/node_rest_shop';
 
 mongoose.connect(db);
@@ -35,19 +35,26 @@ app.use("/orders",orderRoutes);
 
 
 app.use((req,res,next)=>{
-    var error = new Error('Not found ...');
-    error.status = 404;
-    next(error);
+    // var error = new Boom('Not found ...');
+    // res.send(error);
+    // var error= new Error("Not found");
+    // error.status = 404;
+    // next(error);
+
+    // var err = new Boom("Not found..");
+    // res.send(err);
+    // Boom.boomify(err,{statusCode:400});
+    res.send(Boom.badRequest('invalid query'))  ;
 })
 
-app.use((error,req,res,next)=>{
-    res.status(error.status || 500);
-    res.json({
-        error:{
-            messsage:error.message
-        }
-    })
-});
+// app.use((error,req,res,next)=>{
+//     res.status(error.status || 500);
+//     res.json({
+//         error:{
+//             messsage:error.message
+//         }
+//     })
+// });
 
 
 
