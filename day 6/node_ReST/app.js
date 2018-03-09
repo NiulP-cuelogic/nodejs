@@ -44,7 +44,7 @@ app.use((req,res,next)=>{
     // var err = new Boom("Not found..");
     // res.send(err);
     // Boom.boomify(err,{statusCode:400});
-    res.send(Boom.badRequest('invalid query'))  ;
+    res.send(Boom.badRequest('This route is not defined..'))  ;
 })
 
 // app.use((error,req,res,next)=>{

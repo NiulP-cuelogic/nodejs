@@ -1,0 +1,17 @@
+{
+  "name": "node_with_hapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "niul",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^7.2.0",
+    "hapi": "^17.2.2",
+    "mongoose": "^5.0.9",
+    "path": "^0.12.7"
+  }
+}
