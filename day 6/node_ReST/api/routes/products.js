@@ -5,11 +5,32 @@ var mongoose= require("mongoose");
 var Product = require('../models/product');
 var multer =require('multer');
 
-var upload = multer ({dest:"uploads/"});
+var storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'./uploads/');
+    },
+    filename:function(req,file,cb){
+        cb(null,new Date().toISOString()+file.originalname);
+    }
+})
+
+var fileFilter = (req,file,cb)=>{
+    if(file.mimetype==="image/jpeg" || file.mimetype==="image/png"){
+        cb(null,true);
+    }else{
+        cb(null,true);
+    }
+  
+    
+}
+
+var upload = multer ({storage:storage,
+                      fileFilter:fileFilter
+                    });
 
 router.get("/",(req,res,next)=>{
         Product.find()
-        .select('name price _id')
+        .select('name price _id productImage')
         .exec()
         .then(docs=>{
             // console.log(docs);
@@ -18,8 +39,9 @@ router.get("/",(req,res,next)=>{
                 products:docs.map(doc =>{
                     return {
                         name:doc.name,
-                        price:doc.price,
+                        price:doc.price, 
                         _id:doc._id,
+                        productImage:doc.productImage,
                         request:{
                             type:"GET",
                             url:"http://localhost:3000/products/" +doc._id
@@ -43,7 +65,8 @@ router.post("/",upload.single('productImage'),(req,res,next)=>{
     var product = new Product({
         _id:new mongoose.Types.ObjectId(),
         name:req.body.name,
-        price:req.body.price
+        price:req.body.price,
+        productImage:req.file.path
     });
 
     product
@@ -58,7 +81,8 @@ router.post("/",upload.single('productImage'),(req,res,next)=>{
                 id:result._id,
                 request:{
                     type:"POST",
-                    url:"http://localhost/products/"+ result._id
+                    url:"http://localhost/products/"+ result._id,
+                    image:result.productImage
                 }
             }
         }); 

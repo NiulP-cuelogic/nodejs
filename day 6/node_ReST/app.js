@@ -3,6 +3,7 @@ var app = express();
 var morgan = require('morgan');
 var productRoutes = require('./api/routes/products');
 var orderRoutes = require('./api/routes/orders');
+var userRoutes = require('./api/routes/users'); 
 var bodyParser= require("body-parser"); 
 var mongoose = require('mongoose');
 var Boom = require('boom');
@@ -10,9 +11,11 @@ var db = 'mongodb://localhost/node_rest_shop';
 
 mongoose.connect(db);
 
+mongoose.Promise = global.Promise;
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+app.use("/uploads",express.static('uploads'));
 app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Origin",'*');
     res.header(
@@ -32,7 +35,7 @@ app.use(morgan('dev'));
 
 app.use("/products",productRoutes);
 app.use("/orders",orderRoutes);
-
+app.use("/user",userRoutes);
 
 app.use((req,res,next)=>{
     // var error = new Boom('Not found ...');
